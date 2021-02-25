@@ -8,14 +8,13 @@ ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = ROOT_DIR / 'Research_AI_Category_Words'
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
-if READ_DOT_ENV_FILE:
-    env.read_env(str(ROOT_DIR / '.env'))
+env_name = env.str(var='env', default='local')
+env.read_env(str(ROOT_DIR / '.env.{0}'.format(env_name)))
 
 DEBUG = env.bool(var="DJANGO_DEBUG", default=False)
 
 TIME_ZONE = 'Asia/Shanghai'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 USE_I18N = False
 USE_L10N = False
@@ -52,6 +51,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     # Your stuff: custom apps go here
+    'celery_demo'
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -150,3 +150,15 @@ LOGGING = {
     "root": {"level": "INFO", "handlers": ["console"]},
 }
 
+
+
+
+# Celery
+# ------------------------------------------------------------------------------
+if USE_TZ:
+    # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
+    CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+# http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
+CELERY_BROKER_URL = env.str(var="CELERY_BROKER_URL")
