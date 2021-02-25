@@ -48,6 +48,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 THIRD_PARTY_APPS = [
+    'rest_framework'
 ]
 
 LOCAL_APPS = [
@@ -148,5 +149,14 @@ LOGGING = {
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
+}
+
+
+# Django Rest Framework
+# ------------------------------------------------------------------------------
+# https://www.django-rest-framework.org/tutorial/quickstart/#pagination
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
 
