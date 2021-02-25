@@ -5,17 +5,17 @@ from pathlib import Path
 import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-APPS_DIR = ROOT_DIR / 'Research_AI_Category_Words'
+APPS_DIR = ROOT_DIR / 'django_template'
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
-if READ_DOT_ENV_FILE:
-    env.read_env(str(ROOT_DIR / '.env'))
+env_name = env.str(var='env', default='local')
+env.read_env(str(ROOT_DIR / '.env.{0}'.format(env_name)))
+
 
 DEBUG = env.bool(var="DJANGO_DEBUG", default=False)
 
 TIME_ZONE = 'Asia/Shanghai'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 USE_I18N = False
 USE_L10N = False
@@ -51,7 +51,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    # Your stuff: custom apps go here
+    'blog'
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

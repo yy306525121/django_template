@@ -19,6 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('blog/', include('django_template.blog.urls', namespace='blog'))
 ]
 
 if settings.DEBUG:
