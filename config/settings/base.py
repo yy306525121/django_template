@@ -157,6 +157,7 @@ LOGGING = {
 # https://www.django-rest-framework.org/tutorial/quickstart/#pagination
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'django_template.common.rest_utils.custom_exception_handler'
 }
 
